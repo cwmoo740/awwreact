@@ -4,7 +4,6 @@ var React = require("react"),
 
 var Masonry = require("masonry-layout");
 var ImagesLoaded = require("imagesloaded");
-var InfiniteScroll = require("react-infinite-scroll")(React);
 var Imgur = require("./imgur.jsx");
 
 var PhotoList = React.createClass({
@@ -15,14 +14,17 @@ var PhotoList = React.createClass({
     getStateFromFlux: function () {
         var subreddit = location.hash.substring(1);
         var photos = this.getFlux().store("SubRedditStore").getPhotos(subreddit);
-        if (photos === null) {
+        var subredditLoaded = this.getFlux().store("SubRedditStore").isSubredditLoaded();
+        if (photos === null && subredditLoaded) {
             this.getFlux().actions.ajax.getSubreddit(subreddit);
         }
+
         return {
             subreddit: subreddit,
             photos: photos,
             lastPosting: this.getFlux().store("SubRedditStore").getLastPosting(subreddit),
-            imagesLoaded: this.getFlux().store("SubRedditStore").imagesLoaded()
+            imagesLoaded: this.getFlux().store("SubRedditStore").imagesLoaded(),
+            subredditLoaded: subredditLoaded
         };
     },
     getInitialState: function () {
@@ -33,7 +35,6 @@ var PhotoList = React.createClass({
     },
     componentDidMount: function () {
         window.addEventListener('scroll', this.handleScroll);
-        this.ableToLoad = true;
     },
     handleScroll: function () {
         if ($(window).scrollTop() + $(window).height() + 800
@@ -43,6 +44,7 @@ var PhotoList = React.createClass({
     },
     componentDidUpdate: function () {
         if (this.state.photos !== null && this.state.photos.length > 0 && this.state.imagesLoaded === false) {
+            console.log("waiting on images to load");
             ImagesLoaded(document.querySelector(".photo-list"), function (instance) {
                 console.log("calling masonry!");
                 var masonry = new Masonry('.photo-list', {
@@ -55,29 +57,26 @@ var PhotoList = React.createClass({
         }
     },
     loadMore: function () {
-        if (this.state.imagesLoaded === true && this.ableToLoad === true) {
+        if (this.state.imagesLoaded === true && this.state.subredditLoaded === true) {
             this.getFlux().actions.ajax.loadMore(
                 this.state.subreddit,
                 this.state.lastPosting
             );
         }
-        this.ableToLoad = false;
-        setTimeout(function () {
-            this.ableToLoad = true;
-        }.bind(this), 500);
     },
     render: function () {
         if (this.state.photos === null) {
             return (
-                <p> Loading... </p>
+                <p className="loading-text"> Loading... </p>
             );
         }
-        if (this.state.photos.length === 0) {
+        else if (this.state.photos.length === 0) {
             return (
-                <p> No content found... </p>
+                <p className="loading-text"> No content found... </p>
             );
         }
         return (
+            <div className="photo-list-wrapper">
                 <div className="photo-list" ref="photo_list">
                     <div className="spacer"
                          style={{height: this.state.spacerHeight}}>
@@ -96,6 +95,9 @@ var PhotoList = React.createClass({
                         }
                     }, this)}
                 </div>
+                {this.state.photos !== null && this.state.photos.length > 0 && this.state.imagesLoaded === false ?
+                    <p className="loading-text">Loading more...</p> : null}
+            </div>
         );
     }
 });

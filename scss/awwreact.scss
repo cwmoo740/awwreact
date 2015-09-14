@@ -12,15 +12,24 @@ html, body{
 .header {
   background-color: white;
   display: flex;
-  justify-content: space-between;
-  padding-top: 1rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  p:first-child {
-    flex-grow: 1;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  align-items: center;
+  div {
+    margin: 0;
+    flex-shrink: 1;
   }
-  p:nth-child(2) {
+  div:first-child {
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+  div:nth-child(2) {
     padding-right: 1rem;
+  }
+  img {
+    flex-shrink: 2;
+    max-width: 100px;
+    padding-top: 0.5rem;
   }
 }
 
@@ -62,4 +71,13 @@ html, body{
     overflow: hidden;
     color: black;
   }
+}
+
+.loading-text {
+  width: 100%;
+  text-align: center;
+  height: 20%;
+  font-size: 4rem;
+  background-color: #ffdddd;
+  margin: 0;
 }
