@@ -118,28 +118,34 @@ var Header = React.createClass({
 module.exports = Header;
 
 },{"react":276}],4:[function(require,module,exports){
-"use strict";
+'use strict';
 
 var React = require("react");
 
 var Imgur = React.createClass({
-    displayName: "Imgur",
+    displayName: 'Imgur',
 
     propTypes: {
         id: React.PropTypes.string.isRequired,
         title: React.PropTypes.string
     },
     render: function render() {
+        var format = '';
+        if (window.screen.width < 500) {
+            format = 'm';
+        } else if (window.screen.width < 1000) {
+            format = 'l';
+        }
         return React.createElement(
-            "div",
-            { className: "imgur-tile" },
+            'div',
+            { className: 'imgur-tile' },
             React.createElement(
-                "a",
+                'a',
                 { href: '//i.imgur.com/' + this.props.id + '.jpg',
-                    target: "_blank", style: { targetNew: 'tab' } },
-                React.createElement("img", { src: '//i.imgur.com/' + this.props.id + '.jpg' }),
+                    target: '_blank', style: { targetNew: 'tab' } },
+                React.createElement('img', { src: '//i.imgur.com/' + this.props.id + format + '.jpg' }),
                 this.props.title ? React.createElement(
-                    "p",
+                    'p',
                     null,
                     this.props.title
                 ) : null

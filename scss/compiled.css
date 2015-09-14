@@ -88,8 +88,7 @@ html, body {
 .loading-text {
   width: 100%;
   text-align: center;
-  height: 20%;
-  font-size: 4rem;
+  font-size: 2rem;
   background-color: #ffdddd;
   margin: 0; }
 
