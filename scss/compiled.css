@@ -1,0 +1,74 @@
+html, body {
+  width: 100vw;
+  overflow-x: hidden;
+  background-color: #eee; }
+
+.page-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+
+.header {
+  background-color: white;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-top: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem; }
+  .header p:first-child {
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1; }
+  .header p:nth-child(2) {
+    padding-right: 1rem; }
+
+.photo-list {
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
+  .photo-list > p {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    font-size: 2rem;
+    width: 100%;
+    background-color: #777777; }
+
+.imgur-tile {
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  border-radius: 5px;
+  padding: 1%;
+  margin: 1%;
+  background-color: white;
+  width: 48%;
+  display: inline-block; }
+  .imgur-tile img {
+    width: 100%; }
+  .imgur-tile a:link {
+    text-decoration: none; }
+  .imgur-tile p {
+    margin: 0;
+    padding-left: 1rem;
+    overflow: hidden;
+    color: black; }
+

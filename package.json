@@ -1,0 +1,46 @@
+{
+  "name": "awwreact",
+  "version": "1.0.0",
+  "description": "a react webapp to view cute pictures from reddit",
+  "main": "app.jsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build-css && npm run build-js",
+    "build-js": "browserify jsx/app.jsx -t babelify -o jsx/compiled.js",
+    "build-css": "node-sass scss/awwreact.scss | postcss -u autoprefixer -o scss/compiled.css",
+    "watch": "npm run watch-js & npm run watch-css",
+    "watch-js": "watchify jsx/app.jsx -t babelify -o jsx/compiled.js",
+    "watch-css": "node-sass -w scss/awwreact.scss scss/compiled.scss",
+    "start": "http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cwmoo740/awwreact.git"
+  },
+  "keywords": [
+    "reddit",
+    "aww",
+    "react"
+  ],
+  "author": "cwmoo740",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cwmoo740/awwreact/issues"
+  },
+  "homepage": "https://github.com/cwmoo740/awwreact#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^6.0.2",
+    "babel": "^5.8.23",
+    "babelify": "^6.3.0",
+    "browserify": "^11.1.0",
+    "fluxxor": "^1.7.1",
+    "imagesloaded": "^3.1.8",
+    "jquery": "^2.1.4",
+    "masonry-layout": "^3.3.2",
+    "node-sass": "^3.3.2",
+    "postcss-cli": "^2.1.0",
+    "react": "^0.13.3",
+    "reddit.js": "^0.1.3"
+  }
+}
